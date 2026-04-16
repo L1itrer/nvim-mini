@@ -1,3 +1,4 @@
+-- BASIC OPTS
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -36,7 +37,9 @@ vim.o.undofile = true
 vim.o.updatetime = 300
 vim.o.autoread = true
 
-vim.o.clipboard = 'unnamedplus'
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
 
 vim.o.backspace = "indent,eol,start"
 vim.o.encoding = "UTF-8"
@@ -52,7 +55,9 @@ vim.o.inccommand = 'split'
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
-vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { desc = "Clear all search highlights" })
+-- KEYBINDINGS
+
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear all search highlights" })
 
 vim.keymap.set({ "i", "v" }, "<C-\\>", "<Esc>", { desc = "Enter normal mode"})
 
@@ -71,6 +76,9 @@ vim.keymap.set("v", "<A-j>", ":move '>.+1<CR>gv=gv", { desc = "Move line down"})
 vim.keymap.set("v", "<A-k>", ":move '>.-2<CR>gv=gv", { desc = "Move line up"})
 
 vim.keymap.set('n', '<leader>w', ':update<CR>', { desc = 'Update current buffer' })
+
+
+-- CALLBACK SETUP
 
 local terminal_state = {
   window = nil,
@@ -142,3 +150,13 @@ vim.keymap.set('t', '<C-t>', function()
     terminal_state.is_open = false
   end
 end, { noremap = true, silent = true, desc = 'Close floating terminal' })
+
+
+local augroup = vim.api.nvim_create_augroup('user_configuration', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = augroup,
+  callback = function()
+    vim.hl.on_yank()
+  end,
+})
