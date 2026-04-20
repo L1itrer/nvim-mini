@@ -13,12 +13,13 @@ vim.pack.add({
   gh('nvim-tree/nvim-web-devicons'),
   gh('nvim-lualine/lualine.nvim'),
   gh('rebelot/kanagawa.nvim'),
+  gh('echasnovski/mini.nvim'),
   --{
-  --  src = gh('echasnovski/mini.nvim'),
   --}
 })
+require('mini.pick').setup({})
 
-require('indent-o-matic').setup({
+require('ndent-o-matic').setup({
   standard_widths = { 2, 4, 8 },
 })
 
