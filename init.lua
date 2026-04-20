@@ -19,7 +19,7 @@ vim.pack.add({
 })
 require('mini.pick').setup({})
 
-require('ndent-o-matic').setup({
+require('indent-o-matic').setup({
   standard_widths = { 2, 4, 8 },
 })
 
@@ -109,6 +109,8 @@ vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.keymap.set('n', '<leader>w', ':update<CR>', { desc = 'Update current buffer' })
 
+vim.keymap.set('n', '<leader>sf', '<cmd>Pick files<CR>', { desc = 'Pick [f]iles'} )
+vim.keymap.set('n', '<leader>sg', '<cmd>Pick grep_live<CR>', { desc = 'Pick by [g]iles'} )
 
 -- CALLBACK SETUP
 
