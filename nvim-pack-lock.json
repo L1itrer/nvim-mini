@@ -1,0 +1,12 @@
+{
+  "plugins": {
+    "gitsigns": {
+      "rev": "6d808f99bd63303646794406e270bd553ad7792e",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "indent-o-matic": {
+      "rev": "764da1f30b5bb4a49035c3abc9a586322296b812",
+      "src": "https://github.com/Darazaki/indent-o-matic"
+    }
+  }
+}

@@ -2,11 +2,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.cmd.colorscheme("unokai")
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
-vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
-
+local colorsheme = "unokai"
+vim.cmd.colorscheme(colorsheme)
+vim.cmd 'set completeopt+=noselect'
 
 vim.o.number = true
 vim.o.relativenumber = true
@@ -25,9 +23,9 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.incsearch = true
 
+
 vim.o.termguicolors = true
 vim.o.signcolumn = "yes"
-vim.o.showmatch = true
 vim.o.completeopt = "menuone,noinsert,noselect"
 
 vim.o.backup = false
@@ -36,6 +34,8 @@ vim.o.swapfile = false
 vim.o.undofile = true
 vim.o.updatetime = 300
 vim.o.autoread = true
+
+-- TODO: vim.o.showmode = false
 
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
@@ -52,8 +52,9 @@ vim.o.cursorline = true
 
 vim.o.inccommand = 'split'
 
-vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+vim.g.have_nerd_font = true
+vim.o.confirm = true
 
 -- KEYBINDINGS
 
@@ -70,11 +71,14 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
 -- vscode-like move lines
 -- TODO: for some reason does not work on windows
-vim.keymap.set("n", "<A-j>", ":move .+1<CR>==", { desc = "Move line down"})
-vim.keymap.set("n", "<A-k>", ":move .-2<CR>==", { desc = "Move line up"})
-vim.keymap.set("v", "<A-j>", ":move '>.+1<CR>gv=gv", { desc = "Move line down"})
-vim.keymap.set("v", "<A-k>", ":move '>.-2<CR>gv=gv", { desc = "Move line up"})
+vim.keymap.set("n", "<A-j>", "<cmd>move .+1<CR>==", { desc = "Move line down"})
+vim.keymap.set("n", "<A-k>", "<cmd>move .-2<CR>==", { desc = "Move line up"})
+vim.keymap.set("v", "<A-j>", "<cmd>move '>.+1<CR>gv=gv", { desc = "Move line down"})
 
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+vim.keymap.set("v", "<A-k>", "<cmd>move '>.-2<CR>gv=gv", { desc = "Move line up"})
+vim.o.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.keymap.set('n', '<leader>w', ':update<CR>', { desc = 'Update current buffer' })
 
 
@@ -160,3 +164,52 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
+
+
+local opacity_state = true
+
+vim.keymap.set('n', '<leader>to', function()
+  if opacity_state then
+    vim.cmd.colorscheme(colorsheme)
+    opacity_state = false
+  else
+    vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'NormalNC', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'EndOfBuffer', { bg = 'none' })
+    opacity_state = true
+  end
+end, { desc = '[O]pacity toggle on/off'} )
+
+
+vim.api.nvim_create_autocmd('BufReadPost', {
+  desc = 'Return to last position when quiting and returning to a buffer',
+  group = augroup,
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
+-- PLUGINS --
+
+local gh = function(plugin_str) return 'https://github.com/' .. plugin_str end
+
+vim.pack.add({
+  {
+    src = gh('lewis6991/gitsigns.nvim'),
+    name = 'gitsigns',
+  },
+  {
+    src = gh('Darazaki/indent-o-matic'),
+  }
+})
+
+require('indent-o-matic').setup({
+  standard_widths = { 2, 4, 8 },
+})
+
+--require('gitsigns').setup({
+--})
