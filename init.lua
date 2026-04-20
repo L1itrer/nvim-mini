@@ -1,8 +1,35 @@
+-- PLUGINS --
+
+local gh = function(plugin_str) return 'https://github.com/' .. plugin_str end
+
+vim.pack.add({
+  {
+    src = gh('lewis6991/gitsigns.nvim'),
+    name = 'gitsigns',
+  },
+  {
+    src = gh('Darazaki/indent-o-matic'),
+  },
+  gh('nvim-tree/nvim-web-devicons'),
+  gh('nvim-lualine/lualine.nvim'),
+  gh('rebelot/kanagawa.nvim'),
+  --{
+  --  src = gh('echasnovski/mini.nvim'),
+  --}
+})
+
+require('indent-o-matic').setup({
+  standard_widths = { 2, 4, 8 },
+})
+
+vim.o.showmode = false
+require('lualine').setup({
+})
 -- BASIC OPTS
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-local colorsheme = "unokai"
+local colorsheme = "kanagawa"
 vim.cmd.colorscheme(colorsheme)
 vim.cmd 'set completeopt+=noselect'
 
@@ -166,7 +193,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 
-local opacity_state = true
+local opacity_state = false
 
 vim.keymap.set('n', '<leader>to', function()
   if opacity_state then
@@ -191,24 +218,6 @@ vim.api.nvim_create_autocmd('BufReadPost', {
       pcall(vim.api.nvim_win_set_cursor, 0, mark)
     end
   end,
-})
-
--- PLUGINS --
-
-local gh = function(plugin_str) return 'https://github.com/' .. plugin_str end
-
-vim.pack.add({
-  {
-    src = gh('lewis6991/gitsigns.nvim'),
-    name = 'gitsigns',
-  },
-  {
-    src = gh('Darazaki/indent-o-matic'),
-  }
-})
-
-require('indent-o-matic').setup({
-  standard_widths = { 2, 4, 8 },
 })
 
 --require('gitsigns').setup({
