@@ -14,6 +14,9 @@ vim.pack.add({
   gh('nvim-lualine/lualine.nvim'),
   gh('rebelot/kanagawa.nvim'),
   gh('echasnovski/mini.nvim'),
+  gh('saghen/blink.lib'),
+  gh('saghen/blink.cmp'),
+  gh('neovim/nvim-lspconfig'),
   --{
   --}
 })
@@ -26,6 +29,23 @@ require('indent-o-matic').setup({
 vim.o.showmode = false
 require('lualine').setup({
 })
+
+
+local servers = {'ols', 'clangd'}
+--vim.lsp.config['ols'] = {}
+for i, server in ipairs(servers) do
+  vim.lsp.enable(server)
+end
+
+
+-- LSP (shit gets real)
+local cmp = require('blink.cmp')
+cmp.build():wait(60000)
+cmp.setup({
+  sources = { default = { 'lsp', 'path', 'buffer' } },
+  fuzzy = {implementation = "rust"}
+})
+
 -- BASIC OPTS
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
