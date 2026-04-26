@@ -137,6 +137,7 @@ vim.keymap.set('n', '<leader>w', ':update<CR>', { desc = 'Update current buffer'
 vim.keymap.set('n', '<leader>sf', '<cmd>Pick files<CR>', { desc = 'Pick [f]iles'} )
 local config_path = vim.fn.stdpath('config')
 vim.keymap.set('n', '<leader>sg', '<cmd>Pick grep_live<CR>', { desc = 'Pick by [g]iles'} )
+vim.keymap.set('n', '<leader>sb', '<cmd>Pick buffers<CR>', { desc = 'Pick [b]uffers'} )
 vim.keymap.set('n', '<leader>sc', ':edit ' .. config_path .. '<CR>', { desc = 'Open config'} )
 
 -- CALLBACK SETUP
