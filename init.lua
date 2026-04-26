@@ -31,6 +31,7 @@ require('lualine').setup({
 })
 
 
+-- LSP (shit gets real)
 local servers = {'ols', 'clangd'}
 --vim.lsp.config['ols'] = {}
 for i, server in ipairs(servers) do
@@ -38,12 +39,16 @@ for i, server in ipairs(servers) do
 end
 
 
--- LSP (shit gets real)
 local cmp = require('blink.cmp')
-cmp.build():wait(60000)
+local fuzzy_impl = "rust"
+if vim.fn.has 'win32' == 1 then
+  fuzzy_impl = "lua" -- rust build breaks on windows
+else
+  cmp.build():wait(60000)
+end
 cmp.setup({
   sources = { default = { 'lsp', 'path', 'buffer' } },
-  fuzzy = {implementation = "rust"}
+  fuzzy = {implementation = fuzzy_impl}
 })
 
 -- BASIC OPTS
@@ -130,7 +135,9 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.keymap.set('n', '<leader>w', ':update<CR>', { desc = 'Update current buffer' })
 
 vim.keymap.set('n', '<leader>sf', '<cmd>Pick files<CR>', { desc = 'Pick [f]iles'} )
+local config_path = vim.fn.stdpath('config')
 vim.keymap.set('n', '<leader>sg', '<cmd>Pick grep_live<CR>', { desc = 'Pick by [g]iles'} )
+vim.keymap.set('n', '<leader>sc', ':edit ' .. config_path .. '<CR>', { desc = 'Open config'} )
 
 -- CALLBACK SETUP
 
