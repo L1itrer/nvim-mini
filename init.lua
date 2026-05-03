@@ -17,6 +17,7 @@ vim.pack.add({
   gh('saghen/blink.lib'),
   gh('saghen/blink.cmp'),
   gh('neovim/nvim-lspconfig'),
+  -- gh('mg979/vim-visual-multi'),
   --{
   --}
 })
@@ -121,6 +122,12 @@ vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
+vim.keymap.set("n", "<C-y>", "gT", { desc = "Previous tab" })
+vim.keymap.set("n", "<C-p>", "gt", { desc = "Next tab" })
+
+vim.keymap.set("n", "j", "gj", {})
+vim.keymap.set("n", "k", "gk", {})
 
 -- vscode-like move lines
 -- TODO: for some reason does not work on windows
