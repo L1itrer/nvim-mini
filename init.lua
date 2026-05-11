@@ -17,6 +17,7 @@ vim.pack.add({
   gh('saghen/blink.lib'),
   gh('saghen/blink.cmp'),
   gh('neovim/nvim-lspconfig'),
+  gh('rluba/jai.vim'),
   -- gh('mg979/vim-visual-multi'),
   --{
   --}
