@@ -134,7 +134,8 @@ vim.keymap.set("n", "k", "gk", {})
 -- TODO: for some reason does not work on windows
 vim.keymap.set("n", "<A-j>", "<cmd>move .+1<CR>==", { desc = "Move line down"})
 vim.keymap.set("n", "<A-k>", "<cmd>move .-2<CR>==", { desc = "Move line up"})
-vim.keymap.set("v", "<A-j>", "<cmd>move '>.+1<CR>gv=gv", { desc = "Move line down"})
+vim.keymap.set("v", "<A-j>", "<cmd>move '>+1<CR>gv=gv", { desc = "Move line down"})
+vim.keymap.set("v", "<A-k>", "<cmd>move '<-2<CR>gv=gv", { desc = "Move line down"})
 
 vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 vim.keymap.set("v", "<A-k>", "<cmd>move '>.-2<CR>gv=gv", { desc = "Move line up"})
@@ -147,6 +148,8 @@ local config_path = vim.fn.stdpath('config')
 vim.keymap.set('n', '<leader>sg', '<cmd>Pick grep_live<CR>', { desc = 'Pick by [g]iles'} )
 vim.keymap.set('n', '<leader>sb', '<cmd>Pick buffers<CR>', { desc = 'Pick [b]uffers'} )
 vim.keymap.set('n', '<leader>sc', ':edit ' .. config_path .. '<CR>', { desc = 'Open config'} )
+
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- CALLBACK SETUP
 
