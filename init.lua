@@ -1,5 +1,8 @@
 -- PLUGINS --
 
+
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 local gh = function(plugin_str) return 'https://github.com/' .. plugin_str end
 
 do
@@ -151,7 +154,7 @@ vim.pack.add({
   --{
   --}
 })
-require('mini.pick').setup({})
+--require('mini.pick').setup({})
 
 require('indent-o-matic').setup({
   standard_widths = { 2, 4, 8 },
@@ -183,8 +186,6 @@ cmp.setup({
 })
 
 -- BASIC OPTS
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
 
 local colorsheme = "kanagawa"
 vim.cmd.colorscheme(colorsheme)
@@ -239,6 +240,10 @@ vim.o.inccommand = 'split'
 
 vim.g.have_nerd_font = true
 vim.o.confirm = true
+
+vim.diagnostic.config {
+  float = { border = 'rounded'},
+}
 
 -- KEYBINDINGS
 
