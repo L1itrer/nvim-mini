@@ -242,7 +242,16 @@ vim.g.have_nerd_font = true
 vim.o.confirm = true
 
 vim.diagnostic.config {
-  float = { border = 'rounded'},
+  float = { source = 'if_many'},
+  jump = {
+    on_jump = function(_, bufnr)
+      vim.diagnostic.open_float {
+        bufnr = bufnr,
+        scope = 'cursor',
+        focus = false,
+      }
+    end,
+  },
 }
 
 -- KEYBINDINGS
