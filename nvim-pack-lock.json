@@ -32,6 +32,10 @@
       "rev": "d76247d6e3ffa222784be5b156770e37c665f67e",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
+    "multiple-cursors.nvim": {
+      "rev": "eae76d4c5f7ede2d45746dc2affb5e7a139e4aa8",
+      "src": "https://github.com/brenton-leighton/multiple-cursors.nvim"
+    },
     "nvim-lspconfig": {
       "rev": "81878de76c0de4ce289513734ad80c31ec7871b8",
       "src": "https://github.com/neovim/nvim-lspconfig"

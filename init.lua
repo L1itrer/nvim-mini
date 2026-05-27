@@ -145,16 +145,15 @@ vim.pack.add({
   gh('nvim-tree/nvim-web-devicons'),
   gh('nvim-lualine/lualine.nvim'),
   gh('rebelot/kanagawa.nvim'),
-  gh('echasnovski/mini.nvim'),
   gh('saghen/blink.lib'),
   gh('saghen/blink.cmp'),
   gh('neovim/nvim-lspconfig'),
   gh('rluba/jai.vim'),
+  gh('brenton-leighton/multiple-cursors.nvim'),
   -- gh('mg979/vim-visual-multi'),
   --{
   --}
 })
---require('mini.pick').setup({})
 
 require('indent-o-matic').setup({
   standard_widths = { 2, 4, 8 },
@@ -276,11 +275,25 @@ vim.keymap.set("n", "j", "gj", {})
 vim.keymap.set("n", "k", "gk", {})
 
 -- vscode-like move lines
--- TODO: for some reason does not work on windows
+-- TODO: for some reason visual does not work
 vim.keymap.set("n", "<A-j>", "<cmd>move .+1<CR>==", { desc = "Move line down"})
 vim.keymap.set("n", "<A-k>", "<cmd>move .-2<CR>==", { desc = "Move line up"})
-vim.keymap.set("v", "<A-j>", "<cmd>move '>+1<CR>gv=gv", { desc = "Move line down"})
-vim.keymap.set("v", "<A-k>", "<cmd>move '<-2<CR>gv=gv", { desc = "Move line down"})
+vim.keymap.set("x", "<A-j>", "<cmd>move '>+1<CR>gv=gv", { desc = "Move line down"})
+vim.keymap.set("x", "<A-k>", "<cmd>move '<-2<CR>gv=gv", { desc = "Move line down"})
+
+-- multiple cursors
+local mc = require("multiple-cursors")
+mc.setup()
+
+vim.keymap.set({'n', 'x'}, "<C-A-j>", "<cmd>MultipleCursorsAddDown<CR>", {desc = "Add cursor, move down"})
+vim.keymap.set({'n', 'x'}, "<C-A-k>", "<cmd>MultipleCursorsAddUp<CR>", {desc = "Add cursor, move up"})
+vim.keymap.set({'n', 'x', 'i'}, "<C-A-Up>", "<cmd>MultipleCursorsAddDown<CR>", {desc = "Add cursor, move down"})
+vim.keymap.set({'n', 'x', 'i'}, "<C-A-Down>", "<cmd>MultipleCursorsAddUp<CR>", {desc = "Add cursor, move up"})
+
+vim.keymap.set({'n', 'i'}, "<C-LeftMouse>", "<cmd>MultipleCursorsMouseAddDelete<CR>", { desc = "" })
+vim.keymap.set('x', "<Leader>m", "<Cmd>MultipleCursorsAddVisualArea<CR>", { desc = "Add cursors to the lines of the visual area"})
+
+vim.keymap.set({'n'}, "<leader>|", function() mc.align() end, { desc = "Aligns to the rightmost cursor"})
 
 vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
 vim.keymap.set("v", "<A-k>", "<cmd>move '>.-2<CR>gv=gv", { desc = "Move line up"})
