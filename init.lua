@@ -394,16 +394,33 @@ vim.keymap.set('n', '<leader>to', function()
   end
 end, { desc = '[O]pacity toggle on/off'} )
 
-local tabstop_state = 0
+local tabstop_state = {
+  use_spaces = true,
+  len = 0,
+}
 
-vim.keymap.set('n', '<leader>tt', function()
-  tabstop_state = (tabstop_state+1) % 3
-  local tablen = (2 ^ tabstop_state) * 2
+vim.keymap.set('n', '<leader>tw', function()
+  tabstop_state.len = (tabstop_state.len+1) % 3
+  local tablen = (2 ^ tabstop_state.len) * 2
   vim.o.tabstop = tablen
   vim.o.shiftwidth = tablen
   vim.o.softtabstop = tablen
-  print("Tabwidth is now ", tablen)
-end, { desc = '[T]ab width toggle' } )
+  print("Tabwidth is now", tablen)
+end, { desc = 'Tab [w]idth toggle' } )
+
+
+vim.keymap.set('n', '<leader>tt', function()
+  tabstop_state.use_spaces = not tabstop_state.use_spaces
+  -- for some reason assigning use_spaces to expandtab does not yield
+  -- any change
+  -- words cannot describe my confusion
+  if tabstop_state.use_spaces then
+    vim.o.expandtab = true
+  else
+    vim.o.expandtab = false
+  end
+  print("Expandtab:", tabstop_state.use_spaces)
+end, { desc = '[T]ab/spaces toggle' } )
 
 
 vim.api.nvim_create_autocmd('BufReadPost', {
