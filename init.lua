@@ -203,6 +203,8 @@ vim.o.softtabstop = 2
 vim.o.expandtab = true
 vim.o.smartindent = true
 vim.o.autoindent = true
+vim.o.wildmenu = true
+vim.o.wildmode = "longest:full"
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -391,6 +393,17 @@ vim.keymap.set('n', '<leader>to', function()
     opacity_state = true
   end
 end, { desc = '[O]pacity toggle on/off'} )
+
+local tabstop_state = 0
+
+vim.keymap.set('n', '<leader>tt', function()
+  tabstop_state = (tabstop_state+1) % 3
+  local tablen = (2 ^ tabstop_state) * 2
+  vim.o.tabstop = tablen
+  vim.o.shiftwidth = tablen
+  vim.o.softtabstop = tablen
+  print("Tabwidth is now ", tablen)
+end, { desc = '[T]ab width toggle' } )
 
 
 vim.api.nvim_create_autocmd('BufReadPost', {
