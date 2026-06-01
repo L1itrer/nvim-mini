@@ -268,8 +268,8 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
-vim.keymap.set("n", "<C-y>", "gT", { desc = "Previous tab" })
-vim.keymap.set("n", "<C-p>", "gt", { desc = "Next tab" })
+vim.keymap.set({"n", "i"}, "<C-y>", "<cmd>tabprevious<CR>", { desc = "Previous tab" })
+vim.keymap.set({"n", "i"}, "<C-p>", "<cmd>tabNext<CR>", { desc = "Next tab" })
 
 vim.keymap.set("n", "j", "gj", {})
 vim.keymap.set("n", "k", "gk", {})
