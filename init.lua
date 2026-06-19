@@ -196,6 +196,7 @@ vim.o.cursorline = true
 vim.o.wrap = true
 vim.o.scrolloff = 10
 
+
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
@@ -287,8 +288,8 @@ mc.setup()
 
 vim.keymap.set({'n', 'x'}, "<C-A-j>", "<cmd>MultipleCursorsAddDown<CR>", {desc = "Add cursor, move down"})
 vim.keymap.set({'n', 'x'}, "<C-A-k>", "<cmd>MultipleCursorsAddUp<CR>", {desc = "Add cursor, move up"})
-vim.keymap.set({'n', 'x', 'i'}, "<C-A-Up>", "<cmd>MultipleCursorsAddDown<CR>", {desc = "Add cursor, move down"})
-vim.keymap.set({'n', 'x', 'i'}, "<C-A-Down>", "<cmd>MultipleCursorsAddUp<CR>", {desc = "Add cursor, move up"})
+vim.keymap.set({'n', 'x', 'i'}, "<C-A-Down>", "<cmd>MultipleCursorsAddDown<CR>", {desc = "Add cursor, move down"})
+vim.keymap.set({'n', 'x', 'i'}, "<C-A-Up>", "<cmd>MultipleCursorsAddUp<CR>", {desc = "Add cursor, move up"})
 
 vim.keymap.set({'n', 'i'}, "<C-LeftMouse>", "<cmd>MultipleCursorsMouseAddDelete<CR>", { desc = "" })
 vim.keymap.set('x', "<Leader>m", "<Cmd>MultipleCursorsAddVisualArea<CR>", { desc = "Add cursors to the lines of the visual area"})
@@ -356,7 +357,11 @@ local function FloatingTerminal()
     end
   end
   if not has_terminal then
-    vim.fn.jobstart(vim.o.shell, { term = true })
+    local terminal_cmd = vim.o.shell
+    if vim.fn.has 'win32' == 1 then
+      terminal_cmd = 'pwsh.exe'
+    end
+    vim.fn.jobstart(terminal_cmd, { term = true })
   end
   terminal_state.is_open = true
   vim.cmd 'startinsert'
