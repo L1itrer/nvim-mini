@@ -173,12 +173,12 @@ end
 
 
 local cmp = require('blink.cmp')
-local fuzzy_impl = "rust"
-if vim.fn.has 'win32' == 1 then
-  fuzzy_impl = "lua" -- rust build breaks on windows
-else
-  cmp.build():wait(60000)
-end
+local fuzzy_impl = "lua"
+--if vim.fn.has 'win32' == 1 then
+--  fuzzy_impl = "lua" -- rust build breaks on windows
+--else
+--  cmp.build():wait(60000)
+--end
 cmp.setup({
   sources = { default = { 'lsp', 'path', 'buffer' } },
   fuzzy = {implementation = fuzzy_impl}
