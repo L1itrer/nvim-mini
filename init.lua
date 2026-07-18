@@ -197,9 +197,6 @@ vim.o.wrap = true
 vim.o.scrolloff = 10
 
 
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
 vim.o.expandtab = true
 vim.o.smartindent = true
 vim.o.autoindent = true
@@ -270,7 +267,7 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
 vim.keymap.set({"n", "i"}, "<C-y>", "<cmd>tabprevious<CR>", { desc = "Previous tab" })
-vim.keymap.set({"n", "i"}, "<C-p>", "<cmd>tabNext<CR>", { desc = "Next tab" })
+vim.keymap.set({"n", "i"}, "<C-p>", "<cmd>tabnext<CR>", { desc = "Next tab" })
 
 vim.keymap.set("n", "j", "gj", {})
 vim.keymap.set("n", "k", "gk", {})
@@ -417,12 +414,18 @@ local tabstop_state = {
   len = 0,
 }
 
-vim.keymap.set('n', '<leader>tw', function()
+local function SetTabstop()
   tabstop_state.len = (tabstop_state.len+1) % 3
   local tablen = (2 ^ tabstop_state.len) * 2
   vim.o.tabstop = tablen
   vim.o.shiftwidth = tablen
   vim.o.softtabstop = tablen
+  return tablen
+end
+SetTabstop()
+
+vim.keymap.set('n', '<leader>tw', function()
+  local tablen = SetTabstop()
   print("Tabwidth is now", tablen)
 end, { desc = 'Tab [w]idth toggle' } )
 
