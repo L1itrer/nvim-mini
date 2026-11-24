@@ -412,7 +412,7 @@ end
 --
 -- vim.treesitter.language.register('jai', {'jai'})
 --
--- vim.keymap.set('n', '<C-t>', FloatingTerminal, { noremap = true, silent = true, desc = 'Toggle floating terminal' })
+vim.keymap.set('n', '<C-t>', FloatingTerminal, { noremap = true, silent = true, desc = 'Toggle floating terminal' })
 
 vim.keymap.set('t', '<C-t>', function()
   if terminal_state.is_open then
