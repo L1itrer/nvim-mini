@@ -148,12 +148,21 @@ vim.pack.add({
   gh('saghen/blink.lib'),
   gh('saghen/blink.cmp'),
   gh('neovim/nvim-lspconfig'),
-  gh('rluba/jai.vim'),
+  {
+    src = gh('rluba/jai.vim'),
+    name = 'jai.vim',
+    version = 'master',
+  },
   gh('brenton-leighton/multiple-cursors.nvim'),
+  -- {
+  --   src = gh('nvim-treesitter/nvim-treesitter'),
+  --   version = 'main'
+  -- },
   -- gh('mg979/vim-visual-multi'),
   --{
   --}
 })
+
 
 require('indent-o-matic').setup({
   standard_widths = { 2, 4, 8 },
@@ -375,7 +384,35 @@ local function FloatingTerminal()
   })
 end
 
-vim.keymap.set('n', '<C-t>', FloatingTerminal, { noremap = true, silent = true, desc = 'Toggle floating terminal' })
+-- vim.api.nvim_create_autocmd('User', { pattern = 'TSUpdate',
+-- callback = function()
+--   require('nvim-treesitter.parsers').jai = {
+--     install_info = {
+--       url = 'https://github.com/constantitus/tree-sitter-jai',
+--       branch = 'master',
+--       -- revision = '3f8ee754d6531a1672d9e36cd54e81580fcec02c',
+--     }
+--   }
+-- end})
+--
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = {'jai'},
+--   callback = function() vim.treesitter.start() end,
+-- })
+--
+-- vim.filetype.add({
+--   extension = {
+--     jai = 'jai',
+--   },
+-- })
+--
+--
+-- local basic_parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'jai' }
+-- require('nvim-treesitter').install(basic_parsers)
+--
+-- vim.treesitter.language.register('jai', {'jai'})
+--
+-- vim.keymap.set('n', '<C-t>', FloatingTerminal, { noremap = true, silent = true, desc = 'Toggle floating terminal' })
 
 vim.keymap.set('t', '<C-t>', function()
   if terminal_state.is_open then
